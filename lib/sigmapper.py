@@ -27,8 +27,14 @@ class SigMapper:
     html = ''
     keys = []
 
+    countries = {"BE": "Belgium", "EL": "Greece", "LT": "Lithuania", "PT": "Portugal", "BG": "Bulgaria", "ES": "Spain",
+                 "LU": "Luxembourg", "RO": "Romania", "CZ": "Czechia", "FR": "France", "HU": "Hungary",
+                 "SI": "Slovenia", "DK": "Denmark", "HR": "Croatia", "MT": "Malta", "SK": "Slovakia", "DE": "Germany",
+                 "IT": "Italy", "NL": "Netherlands", "FI": "Finland", "EE": "Estonia", "CY": "Cyprus", "AT": "Austria",
+                 "SE": "Sweden", "IE": "Ireland", "LV": "Latvia", "PL": "Poland"}
+
     def _check_keys(self):
-        c = Sign1Message(self.header_prot, self.header, self.payload, signature=self.signature)
+        c = Sign1Message(self.header_prot, self.header, self.payload)
         key_id = c.phdr[KID]
         pk = None
         for pk_ in self.keys:
@@ -48,19 +54,20 @@ class SigMapper:
             }
         )
 
-        c._signature = self.signature
+        c._signature = self.signature  # please tell me a way to set the signature
 
         if pk is not None:
             verified = False
 
             try:
-                verified = c.verify_signature(signature=self.signature)
+                verified = c.verify_signature()
             except Exception as e:
                 print("Signature could not be computed: " + str(e))
 
             if verified:
-                self.html += "<p>Signature validated the key with ID \"" + pk['kid'] + "\" issued by " + pk['ian'] + (
-                    " - " + pk['san'] if pk['san'] != "" else "") + "</p>"
+                self.html += "<p>Signature validated the key with ID \"" + \
+                             pk['kid'] + "\" issued by " + self.countries[pk['ian']] + \
+                             (" - " + pk['san'] if pk['san'] != "" else "") + "</p>"
             else:
                 self.html += "<p>Signature validation failed! (" + pk['kid'] + ")</p>"
         else:
