@@ -5,4 +5,4 @@ Built using Python and Flask framework.
 
 ### DEMO
 
-URL: https://greenpass-decoder.debbaweb.it
+URL: https://dintner.at/greenpass

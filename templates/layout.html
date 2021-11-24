@@ -48,8 +48,8 @@
     <div class="container">
         <section class="py-5 container">
             <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light  text-center">{{ app_name }}</h1>
+                <div class="col-lg-10 col-md-12 mx-auto">
+                    <h1 class="fw-light  text-center">{{ app_name }}</h1><br/>
                     <div id="content">{% block content %}{% endblock %}</div>
                 </div>
             </div>
@@ -60,10 +60,10 @@
 <footer class="footer mt-auto py-3 bg-light">
     <div class="container">
         {% block footer %}
-        <p class="text-center">&copy; Copyright 2021 by <a href="https://www.dueclic.com">Andrea Debernardi</a>.</p>
+        <p class="text-center">&copy; Copyright 2021 by <a href="https://www.dueclic.com">Andrea Debernardi</a>, modified by <a href="https://dintner.at">Leo Dintner</a>.</p>
         <p class="text-center">{{ _('This project is open source') }} ❤️| <a
-                href="{{ github_project }}">Github Repo</a> <a href="https://github.com/debba"> <img alt="GitHub followers"
-                                                                 src="https://img.shields.io/github/followers/debba?style=social">
+                href="{{ github_project }}">Github Repo</a> <a href="https://github.com/oeldin"> <img alt="GitHub followers"
+                                                                 src="https://img.shields.io/github/followers/oeldin?style=social">
         </a>
         </p>
         {% endblock %}

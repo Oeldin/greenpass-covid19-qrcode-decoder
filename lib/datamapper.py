@@ -29,7 +29,7 @@ class DataMapper:
                         for v in value:
                             self._save_json(v, self.schema['$defs'][sch_ref]['properties'], level + 1)
                     else:
-                        self.json += '<p>' + ('&nbsp;' * level) + '<strong>' + description + '</strong>' + ':' + str(
+                        self.json += '<p>' + ('&nbsp;' * 3 * level) + '<strong>' + description + '</strong>' + ': ' + str(
                             value) + '</p>'
                 except KeyError:
                     print('error keys')

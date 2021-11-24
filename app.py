@@ -15,9 +15,10 @@ app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 app.config['MAX_CONTENT_LENGTH'] = 4096 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg']
-app.config['GITHUB_PROJECT'] = 'https://github.com/debba/greenpass-covid19-qrcode-decoder'
+app.config['GITHUB_PROJECT'] = 'https://github.com/oeldin/greenpass-covid19-qrcode-decoder'
 app.config[
     'DCC_SCHEMA'] = 'https://raw.githubusercontent.com/ehn-dcc-development/ehn-dcc-schema/release/1.3.0/DCC.combined-schema.json'
+app.config['DCC_KEY_URL'] = 'https://verifier-api.coronacheck.nl/v4/verifier/public_keys'
 app.glb_schema = {}
 app.converted_schema = ''
 app.config['LANGUAGES'] = {
@@ -62,7 +63,7 @@ def qrdata():
 
             try:
                 decoder = greenpass_decoder(image.stream)
-                return render_template('data.html', data=decoder.decode(app.config['DCC_SCHEMA']))
+                return render_template('data.html', data=decoder.decode(app.config['DCC_SCHEMA'], app.config['DCC_KEY_URL']))
             except (ValueError, IndexError) as e:
                 print(e)
                 return render_template('error.html', error='UPLOAD_IMAGE_NOT_VALID'), 400

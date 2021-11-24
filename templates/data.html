@@ -5,7 +5,14 @@
 <h2>{{ _('Your personal details') }}</h2>
 <div class="card">
     <div class="card-body">
-        {{data|safe}}
+        {{data.vals|safe}}
+    </div>
+</div>
+<br/>
+<h2>{{ _('Signature validation') }}</h2>
+<div class="card">
+    <div class="card-body">
+        {{data.sig|safe}}
     </div>
 </div>
 
