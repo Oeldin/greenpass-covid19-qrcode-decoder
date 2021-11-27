@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.10-buster as build
+FROM python:3.10-buster
 
 WORKDIR /gdec
 RUN apt update && apt install -y libzbar-dev
