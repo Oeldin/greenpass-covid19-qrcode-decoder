@@ -1,6 +1,5 @@
 from flask import Flask, redirect, request, render_template
 from os.path import splitext
-from flask_sslify import SSLify
 from flask_babel import Babel, gettext
 import os
 from lib.greenpass import GreenPassDecoder as greenpass_decoder
@@ -33,10 +32,6 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
-if is_prod:
-    sslify = SSLify(app)
-
-
 @app.context_processor
 def inject_user():
     return dict(github_project=app.config['GITHUB_PROJECT'], is_prod=is_prod, ga_id=ga_id,
@@ -63,7 +58,8 @@ def qrdata():
 
             try:
                 decoder = greenpass_decoder(image.stream)
-                return render_template('data.html', data=decoder.decode(app.config['DCC_SCHEMA'], app.config['DCC_KEY_URL']))
+                return render_template('data.html',
+                                       data=decoder.decode(app.config['DCC_SCHEMA'], app.config['DCC_KEY_URL']))
             except (ValueError, IndexError) as e:
                 print(e)
                 return render_template('error.html', error='UPLOAD_IMAGE_NOT_VALID'), 400
@@ -71,3 +67,7 @@ def qrdata():
         return render_template('error.html', error='UPLOAD_IMAGE_WITH_NO_NAME'), 500
     else:
         return redirect('/')
+
+
+if __name__ == "__main__":
+    app.run()
