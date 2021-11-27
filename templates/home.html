@@ -12,7 +12,7 @@
         {% trans url=github_project %}Don't you trust it? Explore the <a href="{{url}}">open source code</a>  and create your own instance!{% endtrans %}
     </li>
 </ul>
-<form id="greenform" method="POST" action="/qrdata" enctype="multipart/form-data" >
+<form id="greenform" method="POST" action="./qrdata" enctype="multipart/form-data" >
     <div class="input-group">
         <input type="file" name="image" accept="image/*" class="form-control" id="pickFileInput"
                aria-describedby="pickFile" aria-label="Browse">

@@ -6,7 +6,6 @@ WORKDIR /gdec
 RUN apt update && apt install -y libzbar-dev
 
 COPY requirements.txt requirements.txt
-RUN pip install wheel
 RUN pip install -r requirements.txt
 
 COPY . .
